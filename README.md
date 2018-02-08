@@ -16,6 +16,7 @@ The goal of the final assignment is to apply the coding skills you have learned 
 * Create a poster for the project, and present it at the Biology graduate student symposium (April 20)
 
 
+
 ## Group Members:
 Kevin McDermott  <kevinm@cortec.ca>
 
@@ -26,6 +27,10 @@ Alexandra McClymont <17acm5@queensu.ca>
 Peiwen Li <peiwen.li@queensu.ca>
 
 Don't know the name of our other group member ??
+
+## Identify the Project Lead/Liason
+
+* Choose a leader/liason
 
 ## Project Proposals
 
