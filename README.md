@@ -17,9 +17,15 @@ The goal of the final assignment is to apply the coding skills you have learned 
 
 
 ## Group Members:
-Kevin McDermott  kevinm@cortec.ca 613-417-3307 (Work)
+Kevin McDermott  <kevinm@cortec.ca>
 
-Alyson 
+Alyson Van Natto <17avn2@queensu.ca>
+
+Alexandra McClymont <17acm5@queensu.ca>
+
+Peiwen Li <peiwen.li@queensu.ca>
+
+Don't know the name or our other group member??
 
 Project Goal: Project addresses an interesting biological question.
 
