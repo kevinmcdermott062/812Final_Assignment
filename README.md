@@ -25,7 +25,9 @@ Alexandra McClymont <17acm5@queensu.ca>
 
 Peiwen Li <peiwen.li@queensu.ca>
 
-Don't know the name or our other group member??
+Don't know the name of our other group member ??
+
+## Project Proposals
 
 Project Goal: Project addresses an interesting biological question.
 
