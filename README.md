@@ -30,5 +30,21 @@ Don't know the name or our other group member??
 Project Goal: Project addresses an interesting biological question.
 
 Project Ideas/Topics/Data for Analysis?  Suggestions for discussion at our first meeting?
- 
+
+Kevin: 
+
+Title: Trend's in Ontario Private Well Water Testing 
+
+Data: Ontario Private Well Water Microbiology Results and Well Record Dataset (> 900,000 records over a 7 year period)
+       
+Alyson: 
+
+
+Alexandra:
+
+
+Peiwen:
+
+
+??:
 
