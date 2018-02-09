@@ -26,7 +26,7 @@ Alexandra McClymont <17acm5@queensu.ca>
 
 Peiwen Li <peiwen.li@queensu.ca>
 
-Don't know the name of our other group member ??
+Ying Chen <15yc24@queensu.ca>
 
 ## Identify the Project Lead/Liason
 
