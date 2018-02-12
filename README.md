@@ -26,7 +26,7 @@ Alexandra McClymont <17acm5@queensu.ca>
 
 Peiwen Li <peiwen.li@queensu.ca>
 
-Don't know the name of our other group member ??
+Ying chen <15yc24@queensu.ca>
 
 ## Identify the Project Lead/Liason
 
@@ -50,8 +50,9 @@ Alyson:
 Alexandra:
 
 
-Peiwen:
+Peiwen: 
+Title: Genomic analysis of population structure of Arctic char in the Lower Northwest Passage, Nunavut 
+Data: ~3,500 SNP sites of over 100 individuals from ~8 sampling sites.
 
-
-??:
+Ying:
 
