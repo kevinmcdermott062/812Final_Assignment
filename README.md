@@ -55,10 +55,10 @@ Project Ideas/Topics/Data for Analysis?  Suggestions for discussion at our first
 * Data:
 
 ### Peiwen:
-* Title: 
 
-* Data:
-
+* Title: Genomic analysis of population structure of Arctic char in the Lower Northwest Passage, Nunavut 
+* Data: ~3,500 SNP sites of over 100 individuals from ~8 sampling sites.
+ 
 ### Ying Chen:
 * Title: 
 
