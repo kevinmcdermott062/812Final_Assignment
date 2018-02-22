@@ -22,17 +22,15 @@ Kevin McDermott  <kevinm@cortec.ca>
 
 Alyson Van Natto <17avn2@queensu.ca>
 
-Alexandra McClymont <17acm5@queensu.ca>
-
 Peiwen Li <peiwen.li@queensu.ca>
 
 Ying Chen <15yc24@queensu.ca>
 
 ## Identify the Project Lead/Liason
 
-* Choose a leader/liason
+* Peiwen will lead our group project
 
-## Project Proposals
+## Project 
 
 Project Goal: Project addresses an interesting biological question.
 
@@ -63,3 +61,10 @@ Project Ideas/Topics/Data for Analysis?  Suggestions for discussion at our first
 * Title: 
 
 * Data:
+
+# News:
+* Peiwen will lead our group project
+* Title: Genomic analysis of population structure of Arctic char in the Lower Northwest Passage, Nunavut 
+* Data: ~3,500 SNP sites of over 100 individuals from ~8 sampling sites.
+ 
+ 
