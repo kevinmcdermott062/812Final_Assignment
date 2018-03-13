@@ -64,7 +64,10 @@ Project Ideas/Topics/Data for Analysis?  Suggestions for discussion at our first
 
 # News:
 * Peiwen will lead our group project
-* Title: Genomic analysis of population structure of Arctic char in the Lower Northwest Passage, Nunavut 
-* Data: ~3,500 SNP sites of over 100 individuals from ~8 sampling sites.
+* Title: Comparative Whole Genome SNP Analysis of RADseq Data: Implementation and Analysis 
+* Data: 
+       RADseq readfiles from NGS based SNP experiments
+       <i>Anopheles moucheti </i> (African malaria mosquito) of 98 individuals from 2 sampling sites.
+       <i>Anopheles gambiae</i> as the reference genome.
  
  
