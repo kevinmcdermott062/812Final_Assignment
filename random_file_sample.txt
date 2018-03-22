@@ -1,0 +1,7 @@
+
+To print a list of random fastq file names from a directory of fastq files, with sample size n,  formatted for use in a BASH script for STACKS analysis.
+
+The command shuf -n 10 -r  (random selection of n file with -r (replacment))  also see shuf --help
+
+
+ls -l ./*.fq | shuf -n 10 -r | awk '{print "-s", $9, "\\"}'
