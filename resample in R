@@ -1,0 +1,29 @@
+```{r}
+dataset= read.csv("/Users/Peiwen/Desktop/OneDrive/BIOL812/Final project/resample.csv", header = T)
+for (i in 1:10){
+  Nyabessan = as.data.frame(dataset$ID[c(sample(which(dataset$site == "Nyabessan"), 10, replace=T))])
+  names(Nyabessan)[1]=paste("ID")
+  Olama= as.data.frame(dataset$ID[c(sample(which(dataset$site == "Olama"), 10, replace=T))])
+  names(Olama)[1]=paste("ID")
+  popmap_10_i=as.data.frame(rbind(Nyabessan,Olama))
+  write.table(popmap_10_i,file = paste0("./size10/popmap_10_",i,".txt"), row.names = F,col.names = F)
+  }
+
+for (i in 1:10){
+  Nyabessan = as.data.frame(dataset$ID[c(sample(which(dataset$site == "Nyabessan"), 25, replace=T))])
+  names(Nyabessan)[1]=paste("ID")
+  Olama= as.data.frame(dataset$ID[c(sample(which(dataset$site == "Olama"), 25, replace=T))])
+  names(Olama)[1]=paste("ID")
+  popmap_10_i=as.data.frame(rbind(Nyabessan,Olama))
+  write.table(popmap_10_i,file = paste0("./size25/popmap_25_",i,".txt"), row.names = F,col.names = F)
+}
+
+for (i in 1:10){
+  Nyabessan = as.data.frame(dataset$ID[c(sample(which(dataset$site == "Nyabessan"), 37, replace=T))])
+  names(Nyabessan)[1]=paste("ID")
+  Olama= as.data.frame(dataset$ID[c(sample(which(dataset$site == "Olama"), 37, replace=T))])
+  names(Olama)[1]=paste("ID")
+  popmap_10_i=as.data.frame(rbind(Nyabessan,Olama))
+  write.table(popmap_10_i,file = paste0("./size37/popmap_37_",i,".txt"), row.names = F,col.names = F)
+}
+```
