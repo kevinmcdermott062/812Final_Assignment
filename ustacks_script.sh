@@ -6,8 +6,11 @@
 #SBATCH --mem=3g
 #SBATCH -t 14-0:0:0
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --mail-user=15pl16@queensu.ca
+#SBATCH --mail-user= USER.EMAIL.ADDRESS
 #SBATCH -o output_ustacks%j.o
+
+module load stacks/1.46
+
 ustacks -t fastq -f ./fqfiles/1007.fq -o output -m 3 -M 2 -i 1
 ustacks -t fastq -f ./fqfiles/100.fq -o output -m 3 -M 2 -i 2
 ustacks -t fastq -f ./fqfiles/14.fq -o output -m 3 -M 2 -i 3
