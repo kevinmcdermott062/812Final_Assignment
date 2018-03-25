@@ -6,7 +6,7 @@
 #for the 10 sample size
 #create a directory to put the newly formatted output
 dir.create("formatted")
-#loop throught the ten text files
+#loop through the ten text files
 for(i in 1:10){
   file <- paste0("popmap_10_",i,".txt")
  df<- read.table(file)
@@ -19,7 +19,7 @@ for(i in 1:10){
 #for the 25 sample size
 #create a directory to put the newly formatted output
 dir.create("formatted")
-#loop throught the ten text files
+#loop through the ten text files
 for(i in 1:10){
   file <- paste0("popmap_25_",i,".txt")
   df<- read.table(file)
@@ -32,7 +32,7 @@ for(i in 1:10){
 #for the 37 sample size
 #create a directory to put the newly formatted output
 dir.create("formatted")
-#loop throught the ten text files
+#loop through the ten text files
 for(i in 1:10){
   file <- paste0("popmap_37_",i,".txt")
   df<- read.table(file)
