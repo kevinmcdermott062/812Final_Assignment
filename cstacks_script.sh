@@ -8,6 +8,8 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=15pl16@queensu.ca
 #SBATCH -o output_cstacks%j.o
+
+module load stacks/1.46
 cstacks -s ./output/1007 \
 -s ./output/100 \
 -s ./output/14 \
