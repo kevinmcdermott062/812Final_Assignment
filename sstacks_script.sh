@@ -8,6 +8,9 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=15pl16@queensu.ca
 #SBATCH -o output_sstacks%j.o
+
+module load stacks/1.46
+
 sstacks -c ./output/batch_1 -s ./output/1007 \
 -s ./output/100 \
 -s ./output/14 \
