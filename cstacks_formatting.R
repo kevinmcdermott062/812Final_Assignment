@@ -10,7 +10,7 @@ dir.create("formatted")
 for(i in 1:10){
   file <- paste0("popmap_10_",i,".txt")
  df<- read.table(file)
- df$V1 <- paste0("cstacks ",df$V1, " output")
+ df$V1 <- paste0("-s ./output/",df$V1, " \\")
  file <- paste0("~/biol812programming/Final_Assignment/Mosquito Project/mosquito_data/size10/formatted/",file)
  write.table(df, file = file, row.names = FALSE, col.names = FALSE)
  }
@@ -23,7 +23,7 @@ dir.create("formatted")
 for(i in 1:10){
   file <- paste0("popmap_25_",i,".txt")
   df<- read.table(file)
-  df$V1 <- paste0("cstacks ",df$V1, " output")
+  df$V1 <- paste0("-s ./output/",df$V1, " \\")
   file <- paste0("~/biol812programming/Final_Assignment/Mosquito Project/mosquito_data/size25/formatted/",file)
   write.table(df, file = file, row.names = FALSE, col.names = FALSE)
 }
@@ -36,7 +36,7 @@ dir.create("formatted")
 for(i in 1:10){
   file <- paste0("popmap_37_",i,".txt")
   df<- read.table(file)
-  df$V1 <- paste0("cstacks ",df$V1, " output")
+  df$V1 <- paste0("-s ./output/",df$V1, " \\")
   file <- paste0("~/biol812programming/Final_Assignment/Mosquito Project/mosquito_data/size37/formatted/",file)
   write.table(df, file = file, row.names = FALSE, col.names = FALSE)
 }
