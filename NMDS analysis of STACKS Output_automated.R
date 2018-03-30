@@ -6,7 +6,6 @@
 #convert genind object to dissimilarity matrix with poppr package and the bitwise.dist function
 #then use metaMDS from vegan package
 
-#rename batch_1.genepop to batch_1.gen
 library(adegenet)
 library(poppr)
 library(vegan)
