@@ -1,0 +1,36 @@
+Use PGDSpider to convert Structure input file to Arelquin file
+	Pyrad does not make Arlequin files
+
+1.	Log in to HPCVL (if not already)
+cd to your working directory (e.g, u1/work/hpc3484)
+2.	ls (make sure the file you want to convert is there, and that a dummy output file is also there)
+3.	Use the following script to get and unzip PGDSpider in your working directory 
+
+wget http://www.cmpg.unibe.ch/software/PGDSpider/PGDSpider_2.1.0.2.zip
+unzip PGDSpider_2.1.0.2.zip -d ./pgdspider/
+
+Once you’ve retrieved and unzipped PGDSPider, you only need to use the following:
+
+cd pgdspider/PGDSpider_2.1.0.2/
+
+chmod u+x PGDSpider2.sh (only need to do this once as well)
+
+./PGDSpider2.sh
+the .jar is another way to trigger PGDSpider. The .jar and .sh have the same function. So also can use the following command to trigger:
+java -jar PGDSpider2.jar
+
+A GUI will appear! (eventually…)
+The bash is not able to show a GUI. To do so, you will have to use –X command when you login. The –X helps to bring GUI. 
+
+Choose files and settings in PGDSpider:
+
+Under Data Input File, choose File format - Structure 
+Choose file (i.e. the file you created from Pyrad or the example file)
+
+Under Data Output File, choose File format - Arlequin 
+Choose dummy output file you created
+
+Create and/or edit .spid file (change something inside, for example, type of the data to SNP, and -9 in missing value code, and 9798 in number of markers listed in the input). Then save and apply, and hit convert
+
+Hit ‘convert’
+You may see some error when converting, just change the default
