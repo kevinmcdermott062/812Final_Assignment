@@ -15,7 +15,17 @@ cd pgdspider/PGDSpider_2.1.0.2/
 
 chmod u+x PGDSpider2.sh (only need to do this once as well)
 
+From a terminal window login to the CAC cluster:
+ssh -Y hpcxxxx@login.cac.queensu.ca
+cd PGDSpider2.1.1.2
 ./PGDSpider2.sh
+
+Then the PDGSpider GUI will pop out or show up in your OS (operating system's)  tool tray! Give it a few seconds for the GUI to appear.
+
+
+
+
+
 the .jar is another way to trigger PGDSpider. The .jar and .sh have the same function. So also can use the following command to trigger:
 java -jar PGDSpider2.jar
 
