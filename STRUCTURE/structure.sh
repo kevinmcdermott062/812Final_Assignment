@@ -7,3 +7,4 @@
 module load structure
 structure -m mainparams_k1 -e extraparams_nolocprior -K 1
 structure -m mainparams_k2 -e extraparams_nolocprior -K 2
+structure -m mainparams_k3 -e extraparams_nolocprior -K 3
