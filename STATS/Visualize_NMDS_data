@@ -1,0 +1,229 @@
+# R scripts to make a dataset of NMDS for linear mixed effect model ###
+# First set up the final dataset DatNMDS
+DatNMDS <- data.frame(SampleSize=rep(NA,21000),Sim=rep(NA,21000),Pair=rep(NA,21000),Distance=rep(NA,21000)) 
+
+#### Use a for loop to automatically read dataset of each NMDS score file at each sample size and replicate 
+
+######################################
+# First sample size 10 
+setwd("F:\\CY����\\BIOL 812\\group\\DATA_ANALYSIS\\NMDS_sample_size_10") # set working directory
+m = 10 # m is sample size 
+
+FileName <- c(rep(NA,10)) # a vector storing filename of the NMDS at sample size 10 
+for (i in 1:10) { # get all 10 file name 
+  a <- paste("10_", i, "_NMDS_points.csv", sep = "", collapse = NULL)
+  FileName[i] <- a
+}
+
+# get population map for pairwise distance calculation  
+siteID=read.csv("F:/CY����/BIOL 812/group/DATA_ANALYSIS/siteID.csv")  # get population map 
+names(siteID)[1] <- paste("X") # in my computer, the column name of individual ID is not X
+
+# the big loop for pairwise distance calculation for 10 files 
+for (q in 1:length(FileName)){ 
+  mydat=read.csv(FileName[q])
+  mydat$Site=NA # add a column called Site
+
+  n=2*m # n is two times of sample size 
+  for (i in 1:n){  # assign all the sample individuals their Sample Site 
+    for (j in 1:length(siteID$X)) {
+      if (mydat$X[i]==paste(siteID$X[j])){
+        mydat$Site[i]=paste(siteID$Site[j])
+        break
+      }
+    }
+  }
+
+# Now, for each sample size at each replicate, we have individuals ID, NMDS score, and individuals' sampling site
+# Now calculate the pairwise distance and write it into the final dataset DatNMDS
+
+# Find the row number K in DatNMDS where we start to write the pairwise distance 
+  for (a in 1:length(DatNMDS$SampleSize)){
+    if(paste(DatNMDS$SampleSize[a])=="NA"){
+      k=a
+      break
+    }
+  }
+
+# for loop: comparing two individuals' sample site, if they are from different sampling sites, calculate pairwise distance, write it into DatNMDS
+  for (i in 1:(length(mydat$X)-1)){
+    for (j in (i+1):length(mydat$X)){
+      if(paste(mydat$Site[i])!=paste(mydat$Site[j])){
+        DatNMDS$SampleSize[k]=paste(m)
+        DatNMDS$Sim[k]=paste(q)
+        DatNMDS$Pair[k]=paste(mydat$X[i],"-",mydat$X[j])
+        DatNMDS$Distance[k]=paste(abs(mydat$MDS1[i]-mydat$MDS1[j]))
+        k=k+1
+      }
+    }
+  }
+
+}# the end of the big loop of 10 files 
+
+
+
+#############################################################
+# Now sample size 25
+setwd("F:\\CY����\\BIOL 812\\group\\DATA_ANALYSIS\\NMDS_sample_size_25") # set working directory
+m = 25 # m is sample size 
+
+FileName25 <- c(rep(NA,10)) # a vector storing filename of the NMDS at sample size 25 
+for (i in 1:10) { # get all 10 file name 
+  a <- paste("25_", i, "_NMDS_points.csv", sep = "", collapse = NULL)
+  FileName25[i] <- a
+}
+
+# the big loop for pairwise distance calculation for 10 files 
+for (q in 1:length(FileName25)){ 
+  mydat=read.csv(FileName25[q])
+  mydat$Site=NA # add a column called Site
+  
+  n=2*m # n is two times of sample size 
+  for (i in 1:n){  # assign all the sample individuals their Sample Site 
+    for (j in 1:length(siteID$X)) {
+      if (mydat$X[i]==paste(siteID$X[j])){
+        mydat$Site[i]=paste(siteID$Site[j])
+        break
+      }
+    }
+  }
+  
+  # Now, for each sample size at each replicate, we have individuals ID, NMDS score, and individuals' sampling site
+  # Now calculate the pairwise distance and write it into the final dataset DatNMDS
+  
+  # Find the row number K in DatNMDS where we start to write the pairwise distance 
+  for (a in 1:length(DatNMDS$SampleSize)){
+    if(paste(DatNMDS$SampleSize[a])=="NA"){
+      k=a
+      break
+    }
+  }
+  
+  # for loop: comparing two individuals' sample site, if they are from different sampling sites, calculate pairwise distance, write it into DatNMDS
+  for (i in 1:(length(mydat$X)-1)){
+    for (j in (i+1):length(mydat$X)){
+      if(paste(mydat$Site[i])!=paste(mydat$Site[j])){
+        DatNMDS$SampleSize[k]=paste(m)
+        DatNMDS$Sim[k]=paste(q)
+        DatNMDS$Pair[k]=paste(mydat$X[i],"-",mydat$X[j])
+        DatNMDS$Distance[k]=paste(abs(mydat$MDS1[i]-mydat$MDS1[j]))
+        k=k+1
+      }
+    }
+  }
+  
+}# the end of the big loop of 10 files (sample size 25) 
+
+
+
+
+
+
+###########################################
+# Now sample size 37
+setwd("F:\\CY����\\BIOL 812\\group\\DATA_ANALYSIS\\NMDS_sample_size_37") # set working directory
+m = 37 # m is sample size 
+
+FileName37 <- c(rep(NA,10)) # a vector storing filename of the NMDS at sample size 25 
+for (i in 1:10) { # get all 10 file name 
+  a <- paste("37_", i, "_NMDS_points.csv", sep = "", collapse = NULL)
+  FileName37[i] <- a
+}
+
+# the big loop for pairwise distance calculation for 10 files 
+for (q in 1:length(FileName37)){ 
+  mydat=read.csv(FileName37[q])
+  mydat$Site=NA # add a column called Site
+  
+  n=2*m # n is two times of sample size 
+  for (i in 1:n){  # assign all the sample individuals their Sample Site 
+    for (j in 1:length(siteID$X)) {
+      if (mydat$X[i]==paste(siteID$X[j])){
+        mydat$Site[i]=paste(siteID$Site[j])
+        break
+      }
+    }
+  }
+  
+  # Now, for each sample size at each replicate, we have individuals ID, NMDS score, and individuals' sampling site
+  # Now calculate the pairwise distance and write it into the final dataset DatNMDS
+  
+  # Find the row number K in DatNMDS where we start to write the pairwise distance 
+  for (a in 1:length(DatNMDS$SampleSize)){
+    if(paste(DatNMDS$SampleSize[a])=="NA"){
+      k=a
+      break
+    }
+  }
+  
+  # for loop: comparing two individuals' sample site, if they are from different sampling sites, calculate pairwise distance, write it into DatNMDS
+  for (i in 1:(length(mydat$X)-1)){
+    for (j in (i+1):length(mydat$X)){
+      if(paste(mydat$Site[i])!=paste(mydat$Site[j])){
+        DatNMDS$SampleSize[k]=paste(m)
+        DatNMDS$Sim[k]=paste(q)
+        DatNMDS$Pair[k]=paste(mydat$X[i],"-",mydat$X[j])
+        DatNMDS$Distance[k]=paste(abs(mydat$MDS1[i]-mydat$MDS1[j]))
+        k=k+1
+      }
+    }
+  }
+  
+}# the end of the big loop of 10 files 
+
+# Now we had the whole dataset 
+
+write.csv(DatNMDS, "F:\\CY����\\BIOL 812\\group\\DATA_ANALYSIS\\Output\\DatNMDS.csv")
+
+
+
+#########################################
+# Now data visualization
+
+# First cleanup the dataset
+dat1 <- DatNMDS 
+dat2 <- transform(dat1, SampleSize=factor(SampleSize),
+                  Sim=factor(Sim),Pair=factor(Pair),
+                  Distance=as.numeric(Distance)) 
+library(tidyr)
+dat2 <- dat2 %>% drop_na() # delete the rows with NA 
+summary(dat2)
+
+library(dplyr)
+dat3 <- dat2 %>% group_by(SampleSize, Sim) %>% summarise(n = length(Distance), mean_dis = mean(Distance), sd_dis = sd(Distance))
+summary(dat3)
+
+# Visualize the dataset 
+library(ggplot2)
+dodge <- position_dodge(.4)
+ggplot(data = dat3, aes(x=SampleSize, y=mean_dis, group=Sim)) +
+  geom_point(aes(alpha = 8/10, color = "purple"), position = dodge) + 
+  geom_errorbar(aes(ymin = mean_dis - sd_dis, ymax = mean_dis + sd_dis, width = 0.5, alpha = 8/10), position = dodge) +
+  xlab("Sample Size") +
+  ylab("Mean pairwise NMDS distance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "white", color = "black"),
+        axis.title.x = element_text(size = 15, color = "black"),
+        axis.title.y = element_text(size = 13, color = "black"),
+        axis.text.x = element_text(size = 15, color = "black"),
+        axis.text.y = element_text(size = 13, colour = "black"), 
+        legend.position = "none")
+setwd("F:\\CY����\\BIOL 812\\group\\DATA_ANALYSIS\\Output")
+ggsave("plotNMDS.png")
+
+
+###################################
+# Now data analysis using linear mixed effect model 
+
+# First check the dataset 
+summary(dat2) # check the dataset
+hist(dat2$Distance) # have a look at the distribution of response variable 
+
+library(lme4)
+mod0 <- lmer(Distance ~ SampleSize + (1 | Sim), dat2)
+summary(mod0)
+mod1 <- lmer(Distance ~ SampleSize + (SampleSize | Sim), dat2)
+summary(mod1)
+
+
