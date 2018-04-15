@@ -193,7 +193,7 @@ library(dplyr)
 dat3 <- dat2 %>% group_by(SampleSize, Sim) %>% summarise(n = length(Distance), mean_dis = mean(Distance), sd_dis = sd(Distance))
 summary(dat3)
 
-# Visualize the dataset 
+# Visualize the dataset: mean and error bar plot
 library(ggplot2)
 dodge <- position_dodge(.4)
 ggplot(data = dat3, aes(x=SampleSize, y=mean_dis, group=Sim)) +
@@ -211,6 +211,22 @@ ggplot(data = dat3, aes(x=SampleSize, y=mean_dis, group=Sim)) +
         legend.position = "none")
 setwd("F:\\CY����\\BIOL 812\\group\\DATA_ANALYSIS\\Output")
 ggsave("plotNMDS.png")
+
+# Visualize: boxplot
+ggplot(data = dat2, aes(x=SampleSize, y=Distance)) +
+  geom_boxplot(aes(color=Sim))+
+  xlab("Sample Size") +
+  ylab("Pairwise NMDS distance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "white", color = "black"),
+        axis.title.x = element_text(size = 15, color = "black"),
+        axis.title.y = element_text(size = 13, color = "black"),
+        axis.text.x = element_text(size = 15, color = "black"),
+        axis.text.y = element_text(size = 13, colour = "black"), 
+        legend.position = "none")
+setwd("F:\\CY桌面\\BIOL 812\\group\\DATA_ANALYSIS\\Output")
+ggsave("plotNMDS_boxplot.png")
 
 
 ###################################
