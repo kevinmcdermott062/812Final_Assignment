@@ -1,0 +1,34 @@
+DatSNP <- read.csv("F:\\CY����\\BIOL 812\\group\\DATA_ANALYSIS\\SNP_counts.csv")
+summary(DatSNP)
+library(dplyr)
+mydat <- DatSNP %>% rename(size = ﻿Size, Sim = Sim, SNP.numbers = SNP.numbers)
+mydat <- transform(mydat, size = factor(size))
+ggplot(mydat, aes(x = size, y = SNP.numbers, group = size)) +
+  geom_point(position = position_jitter(0.2), aes(color = size, size = 0.5, alpha = 7/10)) + 
+  xlab("Sample Size") +
+  ylab("Number of SNPs") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "white", color = "black"),
+        axis.title.x = element_text(size = 15, color = "black"),
+        axis.title.y = element_text(size = 15, color = "black"),
+        axis.text.x = element_text(size = 15, color = "black"),
+        axis.text.y = element_text(size = 13, colour = "black"), 
+        legend.position = "none")
+setwd("F:\\CY����\\BIOL 812\\group\\DATA_ANALYSIS\\Output")
+ggsave("SNPs_point.png")
+
+ggplot(mydat, aes(x = size, y = SNP.numbers, group = size)) +
+  geom_boxplot(aes(color = size), width = 0.5) + 
+  xlab("Sample Size") +
+  ylab("Number of SNPs") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "white", color = "black"),
+        axis.title.x = element_text(size = 15, color = "black"),
+        axis.title.y = element_text(size = 15, color = "black"),
+        axis.text.x = element_text(size = 15, color = "black"),
+        axis.text.y = element_text(size = 13, colour = "black"), 
+        legend.position = "none")
+setwd("F:\\CY����\\BIOL 812\\group\\DATA_ANALYSIS\\Output")
+ggsave("SNPs_boxplot.png")
