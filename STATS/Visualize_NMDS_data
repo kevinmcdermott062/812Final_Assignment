@@ -230,16 +230,49 @@ ggsave("plotNMDS_boxplot.png")
 
 
 ###################################
+###################################
 # Now data analysis using linear mixed effect model 
+setwd("F:\\CY桌面\\BIOL 812\\group\\DATA_ANALYSIS\\Output")
+dat1 <- read.csv("DatNMDS.csv")
+dat2 <- transform(dat1, SampleSize=factor(SampleSize),
+                  Sim=factor(Sim),Pair=factor(Pair),
+                  Distance=as.numeric(Distance)) 
+library(tidyr)
+dat2 <- dat2 %>% drop_na() # delete the rows with NA 
+
 
 # First check the dataset 
 summary(dat2) # check the dataset
-hist(dat2$Distance) # have a look at the distribution of response variable 
+hist(dat2$Distance) # have a look at the distribution of response variable, seems to be fine
 
 library(lme4)
-mod0 <- lmer(Distance ~ SampleSize + (1 | Sim), dat2)
+mod0 <- lmer(Distance ~ 1 + (1 | Sim), dat2, REML = F)
 summary(mod0)
-mod1 <- lmer(Distance ~ SampleSize + (SampleSize | Sim), dat2)
+mod1 <- lmer(Distance ~ SampleSize + (1 + SampleSize | Sim), dat2, REML = F) # repicate is set as both random intercept and random slope
 summary(mod1)
+mod2 <- lmer(Distance ~ SampleSize + (1 | Sim), dat2, REML = F) # replicate as random intercept
+summary(mod2)
+mod3 <- lmer(Distance ~ SampleSize + (SampleSize | Sim), dat2, REML = F) # replicate as random slope
+summary(mod3)
+anova(mod0, mod1, mod2, mod3) 
+# mod1 and mod3 are the same, with lowest AIC value 
+
+#test whether random effect is significant 
+mod4 <- lm(Distance ~ SampleSize , dat2)
+anova(mod3, mod4) # yes
+
+# so mod3 seems to be the best model 
+
+# Now check assumptions
+# distribution of residuals -normality 
+hist(residuals(mod3))
+#install.packages("nortest") if you need 
+library(nortest)
+ad.test(residuals(mod3))$p.value # Anderson-Darling test for normality 
+
+# homoscedasticity? not really  
+plot(resid(mod3) ~ fitted(mod3))
+abline(h=0, col='red')
+
 
 
