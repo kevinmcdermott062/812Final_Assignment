@@ -1,0 +1,41 @@
+library(rgbif)
+library(ggplot2)
+library(ggsn)
+library(wesanderson)
+library(ggmap)
+library(sf)
+
+Mlat2<-as.data.frame(c(3.43, 2.4)) #dataframe for latitude
+Mlong2<-as.data.frame(c(11.283, 10.4)) #dataframe for longitude
+
+pt1lat<-as.data.frame(c(3.43)) #dataframe for one site
+pt1long<-as.data.frame(c(11.283))
+pt1<-as.data.frame(c(pt1lat,pt1long))
+colnames(pt1)<-c("Latitude","Longitude")
+
+pt2lat<-as.data.frame(c(2.4)) #dataframe for second site (pt1 and pt2 can be ignored, I was playing around with stuff)
+pt2long<-as.data.frame(c(10.4))
+pt2<-as.data.frame(c(pt2lat,pt2long))
+colnames(pt2)<-c("Latitude","Longitude")
+
+Sites<-as.data.frame(c("Olama","Nyabessan")) #dataframe for the sites
+
+MLatLong2<-as.data.frame(c(Mlat2,Mlong2,Sites)) #Combining the dataframes
+colnames(MLatLong2)<-c("Latitude","Longitude","Site") #giving them column names
+
+
+ggplot(aes(x=Longitude, y=Latitude, color=Site), data=MLatLong2)+ #aes statement
+  borders("world", colour="black",fill="white", xlim=c(-15,25), ylim=c(-10,10))+ #map of the world + coordinates
+  coord_fixed(xlim=c(-15,25), ylim=c(-10,10))+ #Rob did this in class, think it's necessary to account for the curvature of the Earth
+  theme_bw()+ #black and white theme
+  theme(legend.position="bottom")+ #put the legend at the bottom
+  geom_point(size=4, alpha=0.9)+ #size of the points
+  scale_color_manual(values=wes_palette(n=2, name="Cavalcanti"))+ #colours of the points, managed to only get this Wes Anderson theme to work
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"))+ #got rid of the grid background
+  ylab("Latitude")+ #label
+  xlab("Longitude")+ #label
+  geom_segment(arrow=arrow(length=unit(3,"mm")), aes(x=-13,xend=-13,y=-8,yend=-5), 
+             colour="black",size=0.75) + #the arrow
+  annotate(x=-13, y=-9, label="N", colour="black", geom="text", size=4.2) #the N
+  
