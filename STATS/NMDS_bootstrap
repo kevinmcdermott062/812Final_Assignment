@@ -1,0 +1,289 @@
+library(dplyr)
+library(ggplot2)
+
+
+
+# bootstrap the individuals for 1000 times, calculate the mean pairwaise distance 
+
+DatbootNMDS <- data.frame(SampleSize = rep(NA, 30), Sim = rep(NA, 30), meandis = rep(NA, 30), sddis = rep(NA, 30), CIlow = rep(NA, 30), CIhigh = rep(NA, 30))
+
+#################################
+# First sample size 10 
+setwd("F:\\CY����\\BIOL 812\\group\\DATA_ANALYSIS\\NMDS_sample_size_10") # set working directory
+m = 10 # m is sample size 
+
+FileName <- c(rep(NA,10)) # a vector storing filename of the NMDS at sample size 10 
+for (i in 1:10) { # get all 10 file name 
+  a <- paste("10_", i, "_NMDS_points.csv", sep = "", collapse = NULL)
+  FileName[i] <- a
+}
+
+# get population map for pairwise distance calculation  
+siteID=read.csv("F:/CY����/BIOL 812/group/DATA_ANALYSIS/siteID.csv")  # get population map 
+names(siteID)[1] <- paste("X") # in my computer, the column name of individual ID is not X
+
+
+for (q in 1:length(FileName)) {
+  mydat=read.csv(FileName[q])
+  mydat$Site=NA # add a column called Site
+  
+  n=2*m # n is two times of sample size 
+  for (i in 1:n){  # assign all the sample individuals their Sample Site 
+    for (j in 1:length(siteID$X)) {
+      if (mydat$X[i]==paste(siteID$X[j])){
+        mydat$Site[i]=paste(siteID$Site[j])
+        break
+      }
+    }
+  }
+  
+  # Now bootstrap the individuals, calculate the mean NMDS distance of each bootstrap 
+  mydat_siteOla <- mydat %>% filter(Site == "Olama")
+  mydat_siteNya <- mydat %>% filter(Site == "Nyabessan")
+  
+  Iters <- 1000 
+  meanbotdis <- c(NA)
+  for (a in 1:Iters) {
+    botOla <- sample(m, m, replace = T)
+    botNya <- sample(m, m, replace = T)
+    
+    botdis <- c(NA)
+    kk <- 1 
+    for (b in 1:m) {
+      for (c in 1:m) {
+        botdis[kk] <- abs(mydat_siteOla$MDS1[botOla[b]] - mydat_siteNya$MDS1[botNya[c]])
+        kk <- kk +1 
+      }
+    }
+    
+    meanbotdis[a] <- mean(botdis)
+  }
+  
+  # Find the row number K in DatNMDS where we start to write the pairwise distance 
+  for (d in 1:length(DatbootNMDS$SampleSize)){
+    if(paste(DatbootNMDS$SampleSize[d])=="NA"){
+      k=d
+      break
+    }
+  }
+  
+  
+  
+  DatbootNMDS$SampleSize[k] <- m
+  DatbootNMDS$Sim[k] <- q
+  DatbootNMDS$meandis[k] <- mean(meanbotdis) # got the mean value of the 1000 bootstrap mean pairwise distance 
+  DatbootNMDS$sddis[k] <- sd(meanbotdis) # got the standard deviation of the 1000 bootstrap mean pairwise distance 
+  DatbootNMDS$CIlow[k] <- sort(meanbotdis)[floor(length(meanbotdis)*0.025)]
+  DatbootNMDS$CIhigh[k] <- sort(meanbotdis)[ceiling(length(meanbotdis)*0.975)]
+  
+  
+}
+
+
+
+
+
+
+
+
+
+
+#################################
+# First sample size 25
+setwd("F:\\CY����\\BIOL 812\\group\\DATA_ANALYSIS\\NMDS_sample_size_25") # set working directory
+m = 25 # m is sample size 
+
+FileName25 <- c(rep(NA,10)) # a vector storing filename of the NMDS at sample size 25 
+for (i in 1:10) { # get all 10 file name 
+  a <- paste("25_", i, "_NMDS_points.csv", sep = "", collapse = NULL)
+  FileName25[i] <- a
+}
+
+
+# the big loop for all 10 files 
+for (q in 1:length(FileName25)) {
+  mydat=read.csv(FileName25[q])
+  mydat$Site=NA # add a column called Site
+  
+  n=2*m # n is two times of sample size 
+  for (i in 1:n){  # assign all the sample individuals their Sample Site 
+    for (j in 1:length(siteID$X)) {
+      if (mydat$X[i]==paste(siteID$X[j])){
+        mydat$Site[i]=paste(siteID$Site[j])
+        break
+      }
+    }
+  }
+  
+  # Now bootstrap the individuals, calculate the mean NMDS distance of each bootstrap 
+  mydat_siteOla <- mydat %>% filter(Site == "Olama")
+  mydat_siteNya <- mydat %>% filter(Site == "Nyabessan")
+  
+  Iters <- 1000 
+  meanbotdis <- c(NA)
+  for (a in 1:Iters) {
+    botOla <- sample(m, m, replace = T)
+    botNya <- sample(m, m, replace = T)
+    
+    botdis <- c(NA)
+    kk <- 1 
+    for (b in 1:m) {
+      for (c in 1:m) {
+        botdis[kk] <- abs(mydat_siteOla$MDS1[botOla[b]] - mydat_siteNya$MDS1[botNya[c]])
+        kk <- kk +1 
+      }
+    }
+    
+    meanbotdis[a] <- mean(botdis)
+  }
+  
+  # Find the row number K in DatNMDS where we start to write the pairwise distance 
+  for (d in 1:length(DatbootNMDS$SampleSize)){
+    if(paste(DatbootNMDS$SampleSize[d])=="NA"){
+      k=d
+      break
+    }
+  }
+  
+  DatbootNMDS$SampleSize[k] <- m
+  DatbootNMDS$Sim[k] <- q
+  DatbootNMDS$meandis[k] <- mean(meanbotdis) # got the mean value of the 1000 bootstrap mean pairwise distance 
+  DatbootNMDS$sddis[k] <- sd(meanbotdis) # got the standard deviation of the 1000 bootstrap mean pairwise distance 
+  DatbootNMDS$CIlow[k] <- sort(meanbotdis)[floor(length(meanbotdis)*0.025)]
+  DatbootNMDS$CIhigh[k] <- sort(meanbotdis)[ceiling(length(meanbotdis)*0.975)]
+  
+}
+
+
+
+
+
+
+###################################
+# Now sample size 37
+setwd("F:\\CY����\\BIOL 812\\group\\DATA_ANALYSIS\\NMDS_sample_size_37") # set working directory
+m = 37 # m is sample size 
+
+FileName37 <- c(rep(NA,10)) # a vector storing filename of the NMDS at sample size 37
+for (i in 1:10) { # get all 10 file name 
+  a <- paste("37_", i, "_NMDS_points.csv", sep = "", collapse = NULL)
+  FileName37[i] <- a
+}
+
+
+# the big loop for all 10 files 
+for (q in 1:length(FileName37)) {
+  mydat=read.csv(FileName37[q])
+  mydat$Site=NA # add a column called Site
+  
+  n=2*m # n is two times of sample size 
+  for (i in 1:n){  # assign all the sample individuals their Sample Site 
+    for (j in 1:length(siteID$X)) {
+      if (mydat$X[i]==paste(siteID$X[j])){
+        mydat$Site[i]=paste(siteID$Site[j])
+        break
+      }
+    }
+  }
+  
+  # Now bootstrap the individuals, calculate the mean NMDS distance of each bootstrap 
+  mydat_siteOla <- mydat %>% filter(Site == "Olama")
+  mydat_siteNya <- mydat %>% filter(Site == "Nyabessan")
+  
+  Iters <- 1000 
+  meanbotdis <- c(NA)
+  for (a in 1:Iters) {
+    botOla <- sample(m, m, replace = T)
+    botNya <- sample(m, m, replace = T)
+    
+    botdis <- c(NA)
+    kk <- 1 
+    for (b in 1:m) {
+      for (c in 1:m) {
+        botdis[kk] <- abs(mydat_siteOla$MDS1[botOla[b]] - mydat_siteNya$MDS1[botNya[c]])
+        kk <- kk +1 
+      }
+    }
+    
+    meanbotdis[a] <- mean(botdis)
+  }
+  
+  # Find the row number K in DatNMDS where we start to write the pairwise distance 
+  for (d in 1:length(DatbootNMDS$SampleSize)){
+    if(paste(DatbootNMDS$SampleSize[d])=="NA"){
+      k=d
+      break
+    }
+  }
+  
+  DatbootNMDS$SampleSize[k] <- m
+  DatbootNMDS$Sim[k] <- q
+  DatbootNMDS$meandis[k] <- mean(meanbotdis) # got the mean value of the 1000 bootstrap mean pairwise distance 
+  DatbootNMDS$sddis[k] <- sd(meanbotdis) # got the standard deviation of the 1000 bootstrap mean pairwise distance 
+  DatbootNMDS$CIlow[k] <- sort(meanbotdis)[floor(length(meanbotdis)*0.025)]
+  DatbootNMDS$CIhigh[k] <- sort(meanbotdis)[ceiling(length(meanbotdis)*0.975)]
+  
+}
+
+
+
+
+write.csv(DatbootNMDS, "F:\\CY����\\BIOL 812\\group\\DATA_ANALYSIS\\Output\\DatbootNMDS.csv")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##############################################
+# Now visualize the DatbootNMDS
+DatbootNMDS <- transform(DatbootNMDS, SampleSize = factor(SampleSize),
+                         Sim = factor(Sim))
+
+dodge <- position_dodge(.4)
+ggplot(DatbootNMDS, aes(x = SampleSize, y = meandis, group = Sim, color = SampleSize)) +
+  geom_point(position = dodge) +
+  geom_errorbar(aes(ymin = meandis + 1.96*sddis, ymax = meandis - 1.96*sddis, width = 0.5), position = dodge) +
+  xlab("Sample Size") +
+  ylab("Mean pairwise NMDS distance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "white", color = "black"),
+        axis.title.x = element_text(size = 15, color = "black"),
+        axis.title.y = element_text(size = 13, color = "black"),
+        axis.text.x = element_text(size = 15, color = "black"),
+        axis.text.y = element_text(size = 13, colour = "black"), 
+        legend.position = "none")
+
+dattest <- DatbootNMDS %>% filter(SampleSize == 10) %>% arrange(CIlow)
+dattest$CIlow[1]
+
+ggplot(DatbootNMDS, aes(x = SampleSize, y = meandis, group = Sim, color = SampleSize)) +
+  geom_point(position = dodge) +
+  geom_errorbar(aes(ymin = CIlow, ymax = CIhigh, width = 0.5), position = dodge) +
+#  geom_hline(yintercept = dattest$CIlow[1]) +
+  xlab("Sample Size") +
+  ylab("Mean pairwise NMDS distance") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "white", color = "black"),
+        axis.title.x = element_text(size = 15, color = "black"),
+        axis.title.y = element_text(size = 13, color = "black"),
+        axis.text.x = element_text(size = 15, color = "black"),
+        axis.text.y = element_text(size = 13, colour = "black"), 
+        legend.position = "none")
+
+
+
+
+
