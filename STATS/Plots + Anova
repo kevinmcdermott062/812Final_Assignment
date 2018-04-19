@@ -1,0 +1,148 @@
+library(ggplot2)
+library(rgbif)
+library(ggsn)
+library(wesanderson)
+library(ggmap)
+library(sf)
+library(dplyr)
+
+snp<-read.csv("snp.csv")
+fst<-read.csv("pairwise fst.csv")
+he<-read.csv("hetero.csv")
+str<-read.csv("structure harvester output.csv")
+
+
+snp$Size<-as.factor(snp$Size)
+fst$Size<-as.factor(fst$Size)
+he$Size<-as.factor(he$Size)
+names(he)
+
+names(he)[3]<-paste("Population")
+
+pal<-wes_palette(18, name = "Cavalcanti", type = "continuous")
+
+snp <-  snp %>% mutate(log10snp=log10(SNP.numbers)) 
+  
+ggplot(snp, aes(x = Size, y = SNP.numbers, group = Size)) +
+    geom_point(position = position_jitter(0.2), aes(color = Size, size = 0.5, alpha = 9/10)) + 
+    scale_color_manual(breaks=c(10,25,37),values = pal)+
+    xlab("") +
+  ylim(100,4000)+
+    ylab("Number of SNPs") +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_rect(fill = "white", color = "black"),
+          axis.title.x = element_text(size = 15, color = "black"),
+          axis.title.y = element_text(size = 15, color = "black"),
+          axis.text.x = element_text(size = 15, color = "black"),
+          axis.text.y = element_text(size = 15, colour = "black"), 
+          legend.position = "none")+
+  annotate("text",x=3,y=3500,label="p=0.0154*")
+
+aov1<-aov(SNP.numbers~Size, data=snp)
+TukeyHSD(aov1)
+summary(aov1)
+hist(residuals(aov1))
+
+
+ggplot(fst, aes(x = Size, y = p.value, group = Size)) +
+  geom_point(position = position_jitter(0.2), aes(color = Size, size = 0.5, alpha = 9/10)) +
+  scale_color_manual(breaks=c(10,25,37),values = pal)+
+  labs(x="",y=expression("Pairwise"~F[ST]~"p-value"))+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "white", color = "black"),
+        axis.title.x = element_text(size = 15, color = "black"),
+        axis.title.y = element_text(size = 15, color = "black"),
+        axis.text.x = element_text(size = 15, color = "black"),
+        axis.text.y = element_text(size = 15, colour = "black"), 
+        legend.position = "none")
+
+aov2<-aov(p.value~Size, data=fst)
+summary(aov2)
+TukeyHSD(aov2)
+hist(residuals(aov2))
+
+
+ggplot(he, aes(x = Size, y = Ho, group = Population)) +
+  geom_point(position = position_jitter(0.2), aes(color = Size, size = 0.5, alpha = 9/10, shape=Population)) +
+  scale_color_manual(breaks=c(10,25,37),values = pal)+
+  labs(x="",y=expression(H[o]))+
+  ylim(0.03,0.16)+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "white", color = "black"),
+        axis.title.x = element_text(size = 15, color = "black"),
+        axis.title.y = element_text(size = 15, color = "black"),
+        axis.text.x = element_text(size = 15, color = "black"),
+        axis.text.y = element_text(size = 15, colour = "black"),
+        legend.title = element_text(size =15, color="black"),legend.position = "bottom")+
+  guides(color=FALSE, alpha=FALSE, size=FALSE)+
+  annotate("text",x=3,y=0.15,label="p<0.001*")
+  
+aov3<-aov(Ho~Size, data=he)
+hist(residuals(aov3))
+TukeyHSD(aov3)
+summary(aov3)
+
+ggplot(he, aes(x = Size, y = He, group = Population)) +
+  geom_point(position = position_jitter(0.2), aes(color = Size, size = 0.5, alpha = 9/10, shape=Population)) +
+  scale_color_manual(breaks=c(10,25,37),values = pal)+
+  labs(x="",y=expression(H[e]))+
+  ylim(0.03,0.16)+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "white", color = "black"),
+        axis.title.x = element_text(size = 15, color = "black"),
+        axis.title.y = element_text(size = 15, color = "black"),
+        axis.text.x = element_text(size = 15, color = "black"),
+        axis.text.y = element_text(size = 15, colour = "black"),
+        legend.title = element_text(size =15, color="black"),legend.position = "bottom")+
+  guides(color=FALSE, alpha=FALSE, size=FALSE)+
+  annotate("text",x=3,y=0.15,label="p<0.001*")
+
+aov4<-aov(He~Size,data=he)
+hist(residuals(aov4))
+summary(aov4)
+TukeyHSD(aov4)
+
+str$Sample.Size<-as.factor(str$Sample.Size)
+
+ggplot(str, aes(x = Sample.Size, y = L1, group = Sample.Size)) +
+  geom_point(position = position_jitter(0.2), aes(color = Sample.Size, size = 0.5, alpha = 9/10)) +
+  scale_color_manual(breaks=c(10,25,37),values = pal)+
+  labs(x="Sample Size", y=expression(Delta*"P [K1-K2]"))+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "white", color = "black"),
+        axis.title.x = element_text(size = 15, color = "black"),
+        axis.title.y = element_text(size = 15, color = "black"),
+        axis.text.x = element_text(size = 15, color = "black"),
+        axis.text.y = element_text(size = 15, colour = "black"), 
+        legend.position = "none")+
+  annotate("text",x=3,y=1000,label="p<0.001*")
+
+aov5<-aov(L1~Sample.Size,data=str)
+hist(residuals(aov5))
+summary(aov5)
+TukeyHSD(aov5)
+
+ggplot(str, aes(x = Sample.Size, y = L2, group = Sample.Size)) +
+  geom_point(position = position_jitter(0.2), aes(color = Sample.Size, size = 0.5, alpha = 9/10)) +
+  scale_color_manual(breaks=c(10,25,37),values = pal)+
+  labs(x="Sample Size", y=expression(Delta*"P [K2-K3]"))+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "white", color = "black"),
+        axis.title.x = element_text(size = 15, color = "black"),
+        axis.title.y = element_text(size = 15, color = "black"),
+        axis.text.x = element_text(size = 15, color = "black"),
+        axis.text.y = element_text(size = 15, colour = "black"), 
+        legend.position = "none")+
+  annotate("text",x=3,y=24000,label="p=0.874")
+
+
+aov6<-aov(L2~Sample.Size,data=str)
+hist(residuals(aov6))
+summary(aov6)
+TukeyHSD(aov6)
