@@ -475,7 +475,25 @@ dev.off()
 
 
 
+# Another way to get p-value
+# post hoc test 
+library(lme4)
+null <- lmer(meanpairdis ~ 1 + (1 | Sim), data = dat1, REML = F)
+mymod <- lmer(meanpairdis ~ SampleSize + (1 + SampleSize | Sim), data = dat1, REML = F)
 
+summary(mymod)
+
+mymod1 <- lmer(meanpairdis ~ SampleSize + (SampleSize | Sim), data = dat1, REML = F)
+mymod2 <- lmer(meanpairdis ~ SampleSize + (1 | Sim), data = dat1, REML = F)
+anova(null, mymod, mymod1, mymod2)
+
+library(lsmeans)
+lsmeans(mymod, list(pairwise ~ SampleSize), adjust = "tukey")
+
+library(lmerTest)
+anova(mymod)
+
+difflsmeans(mymod, test.effs = "SampleSize")
 
 
 
